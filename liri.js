@@ -13,7 +13,9 @@ var spotifySong = process.argv[2];
 // Date of the Event (use moment to format this as "MM/DD/YYYY")
 var axios = require("axios");
 axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp").then(function(response) {
-    console.log("The movie's rating is: " + response.data.imdbRating);
+    console.log("The venue's name is: " + response.data.venue.name);
+    console.log("The venue's location is: " + response.data.venue.city);
+    console.log("The date of the event is: " + response.data.datetime);
   })
   .catch(function(error) {
     if (error.response) {
@@ -49,7 +51,14 @@ axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=cod
 // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
 axios.get("http://www.omdbapi.com/?t=remember+the+titans&y=&plot=short&apikey=trilogy").then(
   function(response) {
+    console.log("The movie's rating is: " + response.data.title);
+    console.log("The movie's rating is: " + response.data.year);
     console.log("The movie's rating is: " + response.data.imdbRating);
+    console.log("The movie's rating is: " + response.data.ratings.source[1]);
+    console.log("The movie's rating is: " + response.data.country);
+    console.log("The movie's rating is: " + response.data.language);
+    console.log("The movie's rating is: " + response.data.plot);
+    console.log("The movie's rating is: " + response.data.actors);
   })
   .catch(function(error) {
     if (error.response) {
