@@ -1,9 +1,38 @@
 require("dotenv").config();
+var keys = require("./keys.js");
+var fs = require("fs");
+var axios = require("axios");
+var moment = require("moment");
+var Spotify = require('node-spotify-api'); //get keys from keys.js
+ 
+var spotify = new Spotify;
 
-var bands = process.argv[2];
-var spotify = process.argv[2];
-var omdb = process.argv[2];
-var spotifySong = process.argv[2];
+var command = process.argv[2];
+var input = process.argv[3];
+
+//code
+// if("concert-this"
+
+// spotify-this-song
+
+// movie-this
+
+// do-what-it-says
+switch(command){
+    case "concert-this":
+    concertThis(input);
+    break;
+    case "spotify-this-song":
+    spotifyThisSong(input);
+    break;
+    case "movie-this":
+    movieThis(input);
+    break;
+    case "do-what-it-says":
+    doWhatItSays(input);
+    break;
+};
+
 
 //bandsintown
 // Name of the venue
@@ -11,7 +40,8 @@ var spotifySong = process.argv[2];
 // Venue location
 
 // Date of the Event (use moment to format this as "MM/DD/YYYY")
-var axios = require("axios");
+//axios
+function concertThis(input){
 axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp").then(function(response) {
     console.log("The venue's name is: " + response.data.venue.name);
     console.log("The venue's location is: " + response.data.venue.city);
@@ -36,8 +66,29 @@ axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=cod
       console.log("Error", error.message);
     }
     console.log(error.config);
-  });
 
+  });
+}
+
+//   Artist(s)
+
+// The song's name
+
+// A preview link of the song from Spotify
+
+// The album that the song is from
+
+// If no song is provided then your program will default to "The Sign" by Ace of Base.
+
+function spotifyThisSong(input){
+    spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+      if (err) {
+        return console.log('Error occurred: ' + err);
+      }
+     
+    console.log(data); 
+    });
+    }
 
 // Then run a request with axios to the OMDB API with the movie specified
 // * Title of the movie.
@@ -49,6 +100,7 @@ axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=cod
 //   * Plot of the movie.
 //   * Actors in the movie.
 // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
+function movieThis(input){
 axios.get("http://www.omdbapi.com/?t=remember+the+titans&y=&plot=short&apikey=trilogy").then(
   function(response) {
     console.log("The movie's rating is: " + response.data.title);
@@ -80,32 +132,8 @@ axios.get("http://www.omdbapi.com/?t=remember+the+titans&y=&plot=short&apikey=tr
     }
     console.log(error.config);
   });
-//   Artist(s)
+}
 
-// The song's name
+function doWhatItSays(input){
 
-// A preview link of the song from Spotify
-
-// The album that the song is from
-
-// If no song is provided then your program will default to "The Sign" by Ace of Base.
-var Spotify = require('node-spotify-api');
- 
-var spotify = new Spotify;
- 
-spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
-  if (err) {
-    return console.log('Error occurred: ' + err);
-  }
- 
-console.log(data); 
-});
-
-//code
-// if("concert-this"
-
-// spotify-this-song
-
-// movie-this
-
-// do-what-it-says
+}
