@@ -91,12 +91,13 @@ function spotifyThisSong(input){
     }
     spotify.search({ type: 'track', query: input })
     .then(function(response){
-        for(var i = 0; i < 5; i++ ){
-            console.log("Artist(s)" + response.track.items[i].artists[0].name)
-            console.log("The song's name:" + response.track.items[i].name)
-            console.log("A preview link of the song from Spotify:" + response.track.items[i].preview_url)
-            console.log("The album that the song is from:" + response.track.items[i].album.name)
-        }
+           var results = 
+            "\nArtist(s):" + response.tracks.items[0].artists[0].name +
+            "\nThe song's name:" + response.tracks.items[0].name +
+            "\nA preview link of the song from Spotify:" + response.tracks.items[0].preview_url +
+            "\nThe album that the song is from:" + response.tracks.items[0].album.name;
+            console.log(results);
+
     })
 
     .catch(function (err, data) {
