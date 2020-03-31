@@ -1,5 +1,5 @@
 require("dotenv").config();
-var keys = require("./keys");
+var keys = require("./keys.js");
 var Spotify = require('node-spotify-api'); //get keys from keys.js
  
 var spotify = new Spotify(keys.spotify);
@@ -11,9 +11,9 @@ moment().format();
 
 
 var command = process.argv[2];
-var input = process.argv[3];
+var input = process.argv.splice(3).join(" ");
 
-//code
+    //code
 // concert-this
 
 // spotify-this-song
@@ -21,6 +21,7 @@ var input = process.argv[3];
 // movie-this
 
 // do-what-it-says
+function run(){
 switch(command){
     case "concert-this":
     concertThis(input);
@@ -35,7 +36,9 @@ switch(command){
     doWhatItSays(input);
     break;
 };
+}
 
+run();
 
 //bandsintown
 // Name of the venue
@@ -132,7 +135,7 @@ axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy"
     console.log("Year the movie came out: " + response.data.Year);
     console.log("IMDB Rating of the movie: " + response.data.imdbRating);
     console.log("Rotten Tomatoes Rating of the movie: " + response.data.Ratings[1].Value);
-    console.log("Country where the movie was produced: " + response.data.country);
+    console.log("Country where the movie was produced: " + response.data.Country);
     console.log("Language of the movie: " + response.data.Language);
     console.log("Plot of the movie: " + response.data.Plot);
     console.log("Actors in the movie: " + response.data.Actors);
@@ -159,12 +162,17 @@ axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy"
   });
 }
 
-function doWhatItSays(input){
-    fs.readFile("random.txt", function(err, data){
-        if(error){
-            return console.log(error);
-        }
+function doWhatItSays(){
+    fs.readFile("random.txt", "utf8", function(err, data){
+        if(err){
+            return console.log(err);
+        }else{
         var dataArr = data.split(",");
-        spotifyThisSong(dataArr[0], dataArr[1]);
+        command = dataArr[0];
+        input = dataArr[1].replace(/"/g, "");
+        run();
+       // spotifyThisSong(dataArr[1]);
+        // console.log(data);
+        }
     })
 }
