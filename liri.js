@@ -1,17 +1,19 @@
 require("dotenv").config();
 var keys = require("./keys.js");
-var fs = require("fs");
-var axios = require("axios");
-var moment = require("moment");
 var Spotify = require('node-spotify-api'); //get keys from keys.js
  
 var spotify = new Spotify;
+
+var fs = require("fs");
+var axios = require("axios");
+var moment = require("moment");
+
 
 var command = process.argv[2];
 var input = process.argv[3];
 
 //code
-// if("concert-this"
+// concert-this
 
 // spotify-this-song
 
@@ -42,10 +44,13 @@ switch(command){
 // Date of the Event (use moment to format this as "MM/DD/YYYY")
 //axios
 function concertThis(input){
-axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp").then(function(response) {
-    console.log("The venue's name is: " + response.data.venue.name);
-    console.log("The venue's location is: " + response.data.venue.city);
-    console.log("The date of the event is: " + response.data.datetime);
+axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp")
+.then(function(response) {
+    for( var i = 0; i < response.data.length; i++){
+    console.log("The venue's name is: " + response.data[i].venue.name);
+    console.log("The venue's location is: " + response.data[i].venue.city);
+    console.log("The date of the event is: " + moment(response.data[i].datetime));
+    }
   })
   .catch(function(error) {
     if (error.response) {
@@ -81,14 +86,27 @@ axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=cod
 // If no song is provided then your program will default to "The Sign" by Ace of Base.
 
 function spotifyThisSong(input){
-    spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+    if(!input){
+        input = "The Sign";
+    }
+    spotify.search({ type: 'track', query: input })
+    .then(function(response){
+        for(var i = 0; i < 5; i++ ){
+            console.log("Artist(s)" + response.track.items[i].artists[0].name)
+            console.log("The song's name:" + response.track.items[i].name)
+            console.log("A preview link of the song from Spotify:" + response.track.items[i].preview_url)
+            console.log("The album that the song is from:" + response.track.items[i].album.name)
+        }
+    })
+
+    .catch(function (err, data) {
       if (err) {
         return console.log('Error occurred: ' + err);
       }
      
     console.log(data); 
     });
-    }
+}
 
 // Then run a request with axios to the OMDB API with the movie specified
 // * Title of the movie.
@@ -101,16 +119,19 @@ function spotifyThisSong(input){
 //   * Actors in the movie.
 // If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
 function movieThis(input){
-axios.get("http://www.omdbapi.com/?t=remember+the+titans&y=&plot=short&apikey=trilogy").then(
+    if(!input){
+        input = "Mr. Nobody";
+    }
+axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy").then(
   function(response) {
-    console.log("The movie's rating is: " + response.data.title);
-    console.log("The movie's rating is: " + response.data.year);
-    console.log("The movie's rating is: " + response.data.imdbRating);
-    console.log("The movie's rating is: " + response.data.ratings.source[1]);
-    console.log("The movie's rating is: " + response.data.country);
-    console.log("The movie's rating is: " + response.data.language);
-    console.log("The movie's rating is: " + response.data.plot);
-    console.log("The movie's rating is: " + response.data.actors);
+    console.log("Title of the movie: " + response.data.title);
+    console.log("Year the movie came out: " + response.data.year);
+    console.log("IMDB Rating of the movie: " + response.data.imdbRating);
+    console.log("Rotten Tomatoes Rating of the movie: " + response.data.ratings.source[1]);
+    console.log("Country where the movie was produced: " + response.data.country);
+    console.log("Language of the movie: " + response.data.language);
+    console.log("Plot of the movie: " + response.data.plot);
+    console.log("Actors in the movie: " + response.data.actors);
   })
   .catch(function(error) {
     if (error.response) {
@@ -135,5 +156,11 @@ axios.get("http://www.omdbapi.com/?t=remember+the+titans&y=&plot=short&apikey=tr
 }
 
 function doWhatItSays(input){
-
+    fs.readFile("random.txt", function(err, data){
+        if(error){
+            return console.log(error);
+        }
+        var dataArr = data.split(",");
+        spotifyThisSong(dataArr[0], dataArr[1]);
+    })
 }
