@@ -53,9 +53,9 @@ axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codi
     for( var i = 0; i < response.data.length; i++){
         var datetime = response.data[i].datetime;
         var dateArr = datetime.split("T");
-    console.log("The venue's name is: " + response.data[i].venue.name);
-    console.log("The venue's location is: " + response.data[i].venue.city);
-    console.log("The date of the event is: " + moment().format(dateArr[0], "MM-DD-YYYY"));
+    console.log("Name of the venue " + response.data[i].venue.name);
+    console.log("Venue location: " + response.data[i].venue.city);
+    console.log("Date of the Event: " + moment().format(dateArr[0], "MM-DD-YYYY"));
     }
   })
   .catch(function(error) {

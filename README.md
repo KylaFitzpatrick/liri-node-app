@@ -1,7 +1,7 @@
 # liri-node-app
 
 ### Clearly state the problem the app is trying to solve (i.e. what is it doing and why)
-In this assignment, you will make LIRI. LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
+LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
 
 ### Give a high-level overview of how the app is organized
 
@@ -55,8 +55,9 @@ It should run spotify-this-song for "I Want it That Way," as follows the text in
 
 Edit the text in random.txt to test out the feature for movie-this and concert-this.
 For example: 
-movie-this,"throw momma from the bridge"
+movie-this,"forrest gump"
 concert-this,"chvrches"
+
 ### Include screenshots, gifs or videos of the app functioning
 1. node liri.js concert-this <artist/band name here>
 
@@ -64,20 +65,29 @@ concert-this,"chvrches"
 
 2. node liri.js spotify-this-song '<song name here>'
 
-
+![Alt text](/images/spotify-this-song.png)
 
 3. node liri.js movie-this '<movie name here>'
 
-
+![Alt text](/images/movie-this.png)
 
 4. node liri.js do-what-it-says
 
+![Alt text](/images/do-what-it-says.png)
 
+![Alt text](/images/do-what-it-says-concert.png)
+
+![Alt text](/images/do-what-it-says-movie.png)
 
 
 ### Contain a link to a deployed version of the app
+
 Repository: https://github.com/KylaFitzpatrick/liri-node-app
+
 ### Clearly list the technologies used in the app
+
 I used the following apis: spotfiy, omdb, axios and bandsintown.  I also used moment.js to display the date format. 
+
 ### State your role in the app development
+
 My role in development was logging responses from the various apis. 
