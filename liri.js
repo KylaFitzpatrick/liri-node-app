@@ -7,6 +7,7 @@ var spotify = new Spotify(keys.spotify);
 var fs = require("fs");
 var axios = require("axios");
 var moment = require("moment");
+moment().format();
 
 
 var command = process.argv[2];
@@ -47,9 +48,11 @@ function concertThis(input){
 axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp")
 .then(function(response) {
     for( var i = 0; i < response.data.length; i++){
+        var datetime = response.data[i].datetime;
+        var dateArr = datetime.split("T");
     console.log("The venue's name is: " + response.data[i].venue.name);
     console.log("The venue's location is: " + response.data[i].venue.city);
-    console.log("The date of the event is: " + moment(response.data[i].datetime));
+    console.log("The date of the event is: " + moment().format(dateArr[0], "MM-DD-YYYY"));
     }
   })
   .catch(function(error) {
