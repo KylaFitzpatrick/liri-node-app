@@ -4,7 +4,7 @@ var Spotify = require('node-spotify-api'); //get keys from keys.js
  
 var spotify = new Spotify(keys.spotify);
 
-var fs = require("fs");
+var fs = require("fs"); //LIRI will take the text inside of random.txt 
 var axios = require("axios");
 var moment = require("moment");
 moment().format();
@@ -79,7 +79,7 @@ axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codi
     console.log(error.config);
 
   });
-}
+};
 
 //   Artist(s)
 
@@ -113,7 +113,7 @@ function spotifyThisSong(input){
      
     console.log(data); 
     });
-}
+};
 
 // Then run a request with axios to the OMDB API with the movie specified
 // * Title of the movie.
@@ -171,8 +171,6 @@ function doWhatItSays(){
         command = dataArr[0];
         input = dataArr[1].replace(/"/g, "");
         run();
-       // spotifyThisSong(dataArr[1]);
-        // console.log(data);
         }
     })
 }
