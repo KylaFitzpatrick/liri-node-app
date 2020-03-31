@@ -60,7 +60,7 @@ concert-this,"chvrches"
 ### Include screenshots, gifs or videos of the app functioning
 1. node liri.js concert-this <artist/band name here>
 
-![Alt text](liri-node-app/screenshots/concert-this.png)
+![Alt text](/images/concert-this.png)
 
 2. node liri.js spotify-this-song '<song name here>'
 
