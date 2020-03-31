@@ -126,16 +126,16 @@ function movieThis(input){
     if(!input){
         input = "Mr. Nobody";
     }
-axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy").then(
-  function(response) {
-    console.log("Title of the movie: " + response.data.title);
-    console.log("Year the movie came out: " + response.data.year);
+axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy")
+.then(function(response) {
+    console.log("Title of the movie: " + response.data.Title);
+    console.log("Year the movie came out: " + response.data.Year);
     console.log("IMDB Rating of the movie: " + response.data.imdbRating);
-    console.log("Rotten Tomatoes Rating of the movie: " + response.data.ratings.source[1]);
+    console.log("Rotten Tomatoes Rating of the movie: " + response.data.Ratings[1].Value);
     console.log("Country where the movie was produced: " + response.data.country);
-    console.log("Language of the movie: " + response.data.language);
-    console.log("Plot of the movie: " + response.data.plot);
-    console.log("Actors in the movie: " + response.data.actors);
+    console.log("Language of the movie: " + response.data.Language);
+    console.log("Plot of the movie: " + response.data.Plot);
+    console.log("Actors in the movie: " + response.data.Actors);
   })
   .catch(function(error) {
     if (error.response) {
