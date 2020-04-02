@@ -36,12 +36,12 @@ run();
 function concertThis(input){
 axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp") //use axios api to request bandsintown and input by user
 .then(function(response) {
-    for(var i = 0; i < response.data.length; i++){
+    for(var i = 0; i < response.data.length; i++){ //looping through the data to find all the info of the venues
         var datetime = response.data[i].datetime;
         var dateArr = datetime.split("T");
         var results =
     "\nName of the venue " + response.data[i].venue.name + //name of venue
-    "\nVenue location: " + response.data[i].venue.city + //vanue location
+    "\nVenue location: " + response.data[i].venue.city + //venue location
     "\nDate of the Event: " + moment().format(dateArr[0], "MM-DD-YYYY")// moment to format date of event as "MM/DD/YYYY"
     console.log(results);
     }
@@ -69,19 +69,9 @@ axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codi
   });
 };
 
-//   Artist(s)
-
-// The song's name
-
-// A preview link of the song from Spotify
-
-// The album that the song is from
-
-// If no song is provided then your program will default to "The Sign" by Ace of Base.
-
 function spotifyThisSong(input){
     if(!input){
-        input = "The Sign";
+        input = "The Sign"; //default song "The Sign" by Ace of Base
     }
     spotify.search({ type: 'track', query: input })
     .then(function(response){
@@ -116,17 +106,7 @@ function spotifyThisSong(input){
         });
 };
 
-// Then run a request with axios to the OMDB API with the movie specified
-// * Title of the movie.
-//   * Year the movie came out.
-//   * IMDB Rating of the movie.
-//   * Rotten Tomatoes Rating of the movie.
-//   * Country where the movie was produced.
-//   * Language of the movie.
-//   * Plot of the movie.
-//   * Actors in the movie.
-// If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
-function movieThis(input){
+function movieThis(input){ //no movie display data for the movie 'Mr. Nobody.'
     if(!input){
         input = "Mr. Nobody";
     }
@@ -168,7 +148,7 @@ axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy"
 function doWhatItSays(){
     fs.readFile("random.txt", "utf8", function(err, data){
         if(err){
-            return  console.log(err);
+            return console.log(err);
         }else{
         var dataArr = data.split(","); //split array on comma
         command = dataArr[0]; //command is the zero index
