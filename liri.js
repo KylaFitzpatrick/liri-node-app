@@ -1,79 +1,67 @@
 require("dotenv").config();
-var keys = require("./keys.js");
+var keys = require("./keys.js");//requiring js file for spotify
 var Spotify = require('node-spotify-api'); //get keys from keys.js
  
 var spotify = new Spotify(keys.spotify);
 
 var fs = require("fs"); //LIRI will take the text inside of random.txt 
-var axios = require("axios");
-var moment = require("moment");
+var axios = require("axios"); //axios required for omdb and bandintown api
+var moment = require("moment"); //moment required for logging date format
 moment().format();
 
 
-var command = process.argv[2];
-var input = process.argv.splice(3).join(" ");
+var command = process.argv[2]; //starting from the second index user will enter command
+var input = process.argv.splice(3).join(" "); //starting from the third index user will enter input
 
-    //code
-// concert-this
-
-// spotify-this-song
-
-// movie-this
-
-// do-what-it-says
 function run(){
 switch(command){
-    case "concert-this":
-    concertThis(input);
+    case "concert-this": //command
+    concertThis(input); //user input artist
     break;
-    case "spotify-this-song":
-    spotifyThisSong(input);
+    case "spotify-this-song"://command
+    spotifyThisSong(input);//user input song
     break;
-    case "movie-this":
-    movieThis(input);
+    case "movie-this"://command
+    movieThis(input);//user input title of movie
     break;
-    case "do-what-it-says":
-    doWhatItSays(input);
+    case "do-what-it-says"://command
+    doWhatItSays();//user runs command
     break;
 };
 }
 
 run();
 
-//bandsintown
-// Name of the venue
 
-// Venue location
-
-// Date of the Event (use moment to format this as "MM/DD/YYYY")
-//axios
 function concertThis(input){
-axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp")
+axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp") //use axios api to request bandsintown and input by user
 .then(function(response) {
-    for( var i = 0; i < response.data.length; i++){
+    for(var i = 0; i < response.data.length; i++){
         var datetime = response.data[i].datetime;
         var dateArr = datetime.split("T");
-    console.log("Name of the venue " + response.data[i].venue.name);
-    console.log("Venue location: " + response.data[i].venue.city);
-    console.log("Date of the Event: " + moment().format(dateArr[0], "MM-DD-YYYY"));
+        var results =
+    "\nName of the venue " + response.data[i].venue.name + //name of venue
+    "\nVenue location: " + response.data[i].venue.city + //vanue location
+    "\nDate of the Event: " + moment().format(dateArr[0], "MM-DD-YYYY")// moment to format date of event as "MM/DD/YYYY"
+    console.log(results);
     }
   })
   .catch(function(error) {
     if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.log("---------------Data---------------");
-      console.log(error.response.data);
-      console.log("---------------Status---------------");
-      console.log(error.response.status);
-      console.log("---------------Status---------------");
-      console.log(error.response.headers);
+        // request return status code from server
+        // errors out of the range of 2xx
+        console.log("---------------Data---------------");
+        console.log(error.response.data);
+        console.log("---------------Status---------------");
+        console.log(error.response.status);
+        console.log("---------------Status---------------");
+        console.log(error.response.headers);
     } else if (error.request) {
-      // The request was made but no response was received
-      // `error.request` is an object that comes back with details pertaining to the error that occurred.
+        // request and no response was received
+        // `error.request` an object with details about error
       console.log(error.request);
     } else {
-      // Something happened in setting up the request that triggered an Error
+      // request triggered an error
       console.log("Error", error.message);
     }
     console.log(error.config);
@@ -98,21 +86,34 @@ function spotifyThisSong(input){
     spotify.search({ type: 'track', query: input })
     .then(function(response){
            var results = 
-            "\nArtist(s):" + response.tracks.items[0].artists[0].name +
-            "\nThe song's name:" + response.tracks.items[0].name +
-            "\nA preview link of the song from Spotify:" + response.tracks.items[0].preview_url +
-            "\nThe album that the song is from:" + response.tracks.items[0].album.name;
+            "\nArtist(s):" + response.tracks.items[0].artists[0].name + //name of artist 
+            "\nThe song's name:" + response.tracks.items[0].name + //name of song
+            "\nA preview link of the song from Spotify:" + response.tracks.items[0].preview_url + //preview link from spotify
+            "\nThe album that the song is from:" + response.tracks.items[0].album.name; //album name
             console.log(results);
 
     })
 
     .catch(function (err, data) {
-      if (err) {
-        return console.log('Error occurred: ' + err);
-      }
-     
-    console.log(data); 
-    });
+        if (error.response) {
+            // request return status code from server
+            // errors out of the range of 2xx
+            console.log("---------------Data---------------");
+            console.log(error.response.data);
+            console.log("---------------Status---------------");
+            console.log(error.response.status);
+            console.log("---------------Status---------------");
+            console.log(error.response.headers);
+          } else if (error.request) {
+              // request and no response was received
+              // `error.request` an object with details about error
+            console.log(error.request);
+          } else {
+            // request triggered an error
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
 };
 
 // Then run a request with axios to the OMDB API with the movie specified
@@ -131,19 +132,21 @@ function movieThis(input){
     }
 axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy")
 .then(function(response) {
-    console.log("Title of the movie: " + response.data.Title);
-    console.log("Year the movie came out: " + response.data.Year);
-    console.log("IMDB Rating of the movie: " + response.data.imdbRating);
-    console.log("Rotten Tomatoes Rating of the movie: " + response.data.Ratings[1].Value);
-    console.log("Country where the movie was produced: " + response.data.Country);
-    console.log("Language of the movie: " + response.data.Language);
-    console.log("Plot of the movie: " + response.data.Plot);
-    console.log("Actors in the movie: " + response.data.Actors);
+    var results =
+    "\nTitle of the movie: " + response.data.Title + //title of movie
+    "\nYear the movie came out: " + response.data.Year + //year movie released
+    "\nIMDB Rating of the movie: " + response.data.imdbRating + //imdb rating
+    "\nRotten Tomatoes Rating of the movie: " + response.data.Ratings[1].Value + //rotten tomatoes rating
+    "\nCountry where the movie was produced: " + response.data.Country + //country the movie was produced
+    "\nLanguage of the movie: " + response.data.Language + //language of movie
+    "\nPlot of the movie: " + response.data.Plot + //plot of the movie
+    "\nActors in the movie: " + response.data.Actors //actors in movie
+    console.log(results); //log result from results var
   })
   .catch(function(error) {
     if (error.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
+      // request return status code from server
+      // errors out of the range of 2xx
       console.log("---------------Data---------------");
       console.log(error.response.data);
       console.log("---------------Status---------------");
@@ -151,11 +154,11 @@ axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy"
       console.log("---------------Status---------------");
       console.log(error.response.headers);
     } else if (error.request) {
-      // The request was made but no response was received
-      // `error.request` is an object that comes back with details pertaining to the error that occurred.
+      // request and no response was received
+      // `error.request` an object with details about error
       console.log(error.request);
     } else {
-      // Something happened in setting up the request that triggered an Error
+      // request triggered an error
       console.log("Error", error.message);
     }
     console.log(error.config);
@@ -165,11 +168,11 @@ axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy"
 function doWhatItSays(){
     fs.readFile("random.txt", "utf8", function(err, data){
         if(err){
-            return console.log(err);
+            return  console.log(err);
         }else{
-        var dataArr = data.split(",");
-        command = dataArr[0];
-        input = dataArr[1].replace(/"/g, "");
+        var dataArr = data.split(","); //split array on comma
+        command = dataArr[0]; //command is the zero index
+        input = dataArr[1].replace(/"/g, ""); //input is the first index
         run();
         }
     })
