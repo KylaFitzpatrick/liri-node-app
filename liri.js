@@ -113,14 +113,14 @@ function movieThis(input){ //no movie display data for the movie 'Mr. Nobody.'
 axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy")
 .then(function(response) {
     var results =
-    "\nTitle of the movie: " + response.data.Title + //title of movie
-    "\nYear the movie came out: " + response.data.Year + //year movie released
-    "\nIMDB Rating of the movie: " + response.data.imdbRating + //imdb rating
-    "\nRotten Tomatoes Rating of the movie: " + response.data.Ratings[1].Value + //rotten tomatoes rating
-    "\nCountry where the movie was produced: " + response.data.Country + //country the movie was produced
-    "\nLanguage of the movie: " + response.data.Language + //language of movie
-    "\nPlot of the movie: " + response.data.Plot + //plot of the movie
-    "\nActors in the movie: " + response.data.Actors //actors in movie
+    "\n* Title of the movie: " + response.data.Title + //title of movie
+    "\n* Year the movie came out: " + response.data.Year + //year movie released
+    "\n* IMDB Rating of the movie: " + response.data.imdbRating + //imdb rating
+    "\n* Rotten Tomatoes Rating of the movie: " + response.data.Ratings[1].Value + //rotten tomatoes rating
+    "\n* Country where the movie was produced: " + response.data.Country + //country the movie was produced
+    "\n* Language of the movie: " + response.data.Language + //language of movie
+    "\n* Plot of the movie: " + response.data.Plot + //plot of the movie
+    "\n* Actors in the movie: " + response.data.Actors //actors in movie
     console.log(results); //log result from results var
   })
   .catch(function(error) {
@@ -148,7 +148,7 @@ axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy"
 function doWhatItSays(){
     fs.readFile("random.txt", "utf8", function(err, data){
         if(err){
-            return console.log(err);
+            console.log(err)
         }else{
         var dataArr = data.split(","); //split array on comma
         command = dataArr[0]; //command is the zero index

@@ -1,13 +1,16 @@
 # liri-node-app
 
 ### Clearly state the problem the app is trying to solve (i.e. what is it doing and why)
-LIRI is like iPhone's SIRI. However, while SIRI is a Speech Interpretation and Recognition Interface, LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data.
+LIRI is a Language Interpretation and Recognition Interface. LIRI will be a command line node app that takes in parameters and gives you back data from spotify, ombd, bandsintown.
+LIRI displays information from these various APIs to give the user more information about the inputs they are searching.
 
 ### Give a high-level overview of how the app is organized
 
-LIRI will search Spotify for songs, Bands in Town for concerts, and OMDB for movies.
+LIRI will search Spotify for songs, Bands in Town for concerts, and OMDB for movies as well as reading text from a file to call the various API based on the command.
 
 ### Give start-to-finish instructions on how to run the app
+
+Run steps 1-4 to display data based on your input for each command:
 
 1. node liri.js concert-this <artist/band name here>
 
@@ -46,8 +49,8 @@ This will output the following information to your terminal/bash window:
   * Language of the movie.
   * Plot of the movie.
   * Actors in the movie.
-If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
 
+If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
 
 4. node liri.js do-what-it-says
 
