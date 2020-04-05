@@ -6,7 +6,7 @@ LIRI displays information from these various APIs to give the user more informat
 
 ### Give a high-level overview of how the app is organized
 
-LIRI will search Spotify for songs, Bands in Town for concerts, and OMDB for movies as well as reading text from a file to call the various API based on the command.
+LIRI will search Spotify for songs, Bands in Town for concerts, and OMDB for movies as well as reading text from a file to call the various API based on the command. This data will also be logged in a log.txt file everytime the command is ran.
 
 ### Give start-to-finish instructions on how to run the app
 
@@ -82,6 +82,9 @@ concert-this,"chvrches"
 
 ![Alt text](/images/do-what-it-says-movie.png)
 
+5. The above commands will also log data to log.txt file everytime a command in ran
+
+![Alt text](/images/log_txt.png)
 
 ### Contain a link to a deployed version of the app
 
@@ -89,8 +92,8 @@ Repository: https://github.com/KylaFitzpatrick/liri-node-app
 
 ### Clearly list the technologies used in the app
 
-I used the following apis: spotfiy, omdb, axios and bandsintown.  I also used moment.js to display the date format. 
+I used the following apis: spotfiy, omdb, axios and bandsintown. I also used moment.js to display the date format. 
 
 ### State your role in the app development
 
-My role in development was logging responses from the various apis. 
+My role in development was logging data responses from the various apis. 

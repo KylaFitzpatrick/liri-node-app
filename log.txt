@@ -1,0 +1,24 @@
+
+Name of the venue BottleRock
+Venue location: Napa
+Date of the Event: 2020-10-04
+--------------------
+Artist(s):Maggie Rogers
+The song's name:Alaska
+A preview link of the song from Spotify:null
+The album that the song is from:Heard It In A Past Life
+--------------------
+* Title of the movie: Forrest Gump
+* Year the movie came out: 1994
+* IMDB Rating of the movie: 8.8
+* Rotten Tomatoes Rating of the movie: 70%
+* Country where the movie was produced: USA
+* Language of the movie: English
+* Plot of the movie: The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other historical events unfold through the perspective of an Alabama man with an IQ of 75, whose only desire is to be reunited with his childhood sweetheart.
+* Actors in the movie: Tom Hanks, Rebecca Williams, Sally Field, Michael Conner Humphreys
+--------------------
+Artist(s):Backstreet Boys
+The song's name:I Want It That Way
+A preview link of the song from Spotify:https://p.scdn.co/mp3-preview/e72a05dc3f69c891e3390c3ceaa77fad02f6b5f6?cid=9c967769d82c4fd6a77d9af28867343b
+The album that the song is from:The Hits--Chapter One
+--------------------

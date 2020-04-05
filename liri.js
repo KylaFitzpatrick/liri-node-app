@@ -36,6 +36,8 @@ run();
 function concertThis(input){
 axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp") //use axios api to request bandsintown and input by user
 .then(function(response) {
+
+    var spacer = "\n--------------------"
     for(var i = 0; i < response.data.length; i++){ //looping through the data to find all the info of the venues
         var datetime = response.data[i].datetime;
         var dateArr = datetime.split("T");
@@ -43,8 +45,12 @@ axios.get("https://rest.bandsintown.com/artists/" + input + "/events?app_id=codi
     "\nName of the venue " + response.data[i].venue.name + //name of venue
     "\nVenue location: " + response.data[i].venue.city + //venue location
     "\nDate of the Event: " + moment().format(dateArr[0], "MM-DD-YYYY")// moment to format date of event as "MM/DD/YYYY"
-    console.log(results);
     }
+     // append results and spacer to log.txt, print results to the console
+     fs.appendFile("log.txt", results + spacer, function(err) {
+        if (err) throw err;
+        console.log(results);
+      });
   })
   .catch(function(error) {
     if (error.response) {
@@ -75,13 +81,17 @@ function spotifyThisSong(input){
     }
     spotify.search({ type: 'track', query: input })
     .then(function(response){
+        var spacer = "\n--------------------"
            var results = 
             "\nArtist(s):" + response.tracks.items[0].artists[0].name + //name of artist 
             "\nThe song's name:" + response.tracks.items[0].name + //name of song
             "\nA preview link of the song from Spotify:" + response.tracks.items[0].preview_url + //preview link from spotify
             "\nThe album that the song is from:" + response.tracks.items[0].album.name; //album name
-            console.log(results);
-
+            // append results and spacer to log.txt, print results to the console
+            fs.appendFile("log.txt", results + spacer, function(err) {
+                if (err) throw err;
+                console.log(results);//log result from results var
+              });
     })
 
     .catch(function (err, data) {
@@ -112,6 +122,7 @@ function movieThis(input){ //no movie display data for the movie 'Mr. Nobody.'
     }
 axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy")
 .then(function(response) {
+    var spacer = "\n--------------------"
     var results =
     "\n* Title of the movie: " + response.data.Title + //title of movie
     "\n* Year the movie came out: " + response.data.Year + //year movie released
@@ -121,7 +132,11 @@ axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy"
     "\n* Language of the movie: " + response.data.Language + //language of movie
     "\n* Plot of the movie: " + response.data.Plot + //plot of the movie
     "\n* Actors in the movie: " + response.data.Actors //actors in movie
-    console.log(results); //log result from results var
+    // append results and spacer to log.txt, print results to the console
+    fs.appendFile("log.txt", results + spacer, function(err) {
+        if (err) throw err;
+        console.log(results);//log result from results var
+      });
   })
   .catch(function(error) {
     if (error.response) {
@@ -156,4 +171,6 @@ function doWhatItSays(){
         run();
         }
     })
-}
+ 
+};
+
